@@ -11,7 +11,9 @@ const router = createBrowserRouter([
     path: '/',
     element: <SearchUserRepository />,
   }
-])
+], {
+  basename: '/repolist',
+})
 
 function App() {
   return (
