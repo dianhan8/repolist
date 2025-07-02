@@ -73,7 +73,7 @@ const SearchUserRepository = () => {
                 'hidden': users.length === 0
             })}>
                 <div className="search-result">
-                    <p>Showing users for {form.watch('username')}</p>
+                    <p data-testid="show-result--word">Showing users for {form.watch('username')}</p>
                 </div>
 
                 <Accordion>
