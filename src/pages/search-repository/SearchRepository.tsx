@@ -1,4 +1,4 @@
-import { useForm, Controller, set } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { getUsers, type UserDto } from "../../services/repository.service";
 import { useState } from "react";
 import cn from "classnames";
