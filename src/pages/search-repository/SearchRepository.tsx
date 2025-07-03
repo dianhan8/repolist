@@ -44,7 +44,7 @@ const SearchUserRepository = () => {
     }
 
     return (
-        <div>
+        <div className="search-repository">
             <div className="search-form">
                 <div className="search-form--field">
                     <Controller
@@ -78,7 +78,7 @@ const SearchUserRepository = () => {
                 <LoadingState />
             )}
 
-            <div className={cn({
+            <div className={cn("search-result--container", {
                 'hidden': users.length === 0
             })}>
                 <div className="search-result">
