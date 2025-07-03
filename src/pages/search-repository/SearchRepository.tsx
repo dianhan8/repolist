@@ -7,6 +7,8 @@ import { ListRespository } from "../../pages/search-repository/components/ListRe
 import { EmptyState } from "../../components/EmptyState";
 import { Field } from "../../components/Field";
 import { LoadingState } from "../../components/LoadingState";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 interface SearchFormDto {
     username: string;
@@ -16,15 +18,20 @@ const SearchUserRepository = () => {
     const form = useForm<SearchFormDto>({
         defaultValues: {
             username: ''
-        }
+        },
+        resolver: yupResolver(yup.object().shape({
+            username: yup.string().required('Username is required')
+        }))
     })
 
     const [isLoading, setIsLoading] = useState(false);
+    const [username, setUsername] = useState('');
     const [users, setUsers] = useState<UserDto[]>([]);
 
     const onSubmit = async (data: SearchFormDto) => {
         setUsers([]);
         setIsLoading(true);
+        setUsername(data.username);
 
         try {
             const users = await getUsers(data.username);
@@ -43,13 +50,15 @@ const SearchUserRepository = () => {
                     <Controller
                         name="username"
                         control={form.control}
-                        render={({ field }) => (
+                        render={({ field, formState: { errors } }) => (
                             <Field
                                 placeholder="Enter username"
                                 value={field.value}
                                 onChange={field.onChange}
                                 onSubmit={form.handleSubmit(onSubmit)}
                                 testId="search-username-field"
+                                error={Boolean(errors[field.name]?.message)}
+                                helperText={errors[field.name]?.message}
                             />
                         )}
                     />
@@ -73,7 +82,7 @@ const SearchUserRepository = () => {
                 'hidden': users.length === 0
             })}>
                 <div className="search-result">
-                    <p data-testid="show-result--word">Showing users for {form.watch('username')}</p>
+                    <p data-testid="show-result--word">Showing users for {username}</p>
                 </div>
 
                 <Accordion>

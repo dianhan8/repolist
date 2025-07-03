@@ -40,6 +40,12 @@ body {
   border-radius: 8px;
 }
 
+.field-input--error {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #d9534f; /* Bootstrap danger color */
+}
+
 .btn {
   min-width: 100px;
   min-height: 42px;
@@ -81,7 +87,7 @@ body {
 
 .search-form {
   display: flex;
-  align-items: center;
+  align-items: start;
   margin-bottom: 16px;
   gap: 12px;
 }
